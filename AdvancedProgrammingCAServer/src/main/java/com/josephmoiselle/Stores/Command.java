@@ -8,4 +8,4 @@ package com.josephmoiselle.Stores;
  *
  * @author Joseph Moiselle 24308453
  */
-public record Ticket(String id, String name, String type, String desc) {};
+public record Command(String argument, String id, String name, String type, String desc) {};
