@@ -11,7 +11,7 @@ package com.josephmoiselle.Stores;
 public class commandParser {
     
     public parse throws invalidCommand{
-        
+    
     }
     
 }
