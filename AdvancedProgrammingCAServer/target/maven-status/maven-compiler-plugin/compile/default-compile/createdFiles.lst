@@ -1,0 +1,7 @@
+com\josephmoiselle\Main.class
+com\josephmoiselle\Stores\ticketStore.class
+com\josephmoiselle\Stores\InvalidCommandException.class
+com\josephmoiselle\Stores\Ticket.class
+com\josephmoiselle\ClientManager.class
+com\josephmoiselle\Stores\commandParser$Command.class
+com\josephmoiselle\Stores\commandParser.class

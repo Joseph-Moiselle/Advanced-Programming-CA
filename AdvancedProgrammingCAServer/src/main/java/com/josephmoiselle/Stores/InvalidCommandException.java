@@ -8,6 +8,12 @@ package com.josephmoiselle.Stores;
  *
  * @author Joseph Moiselle 24308453
  */
-public class InvalidCommandException {
+public class InvalidCommandException extends Exception {
+    
+    public InvalidCommandException(String message) {
+
+        super(message);
+    
+    }
     
 }

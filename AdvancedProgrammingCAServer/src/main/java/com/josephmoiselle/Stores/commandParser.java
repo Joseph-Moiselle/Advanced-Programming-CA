@@ -11,14 +11,34 @@ package com.josephmoiselle.Stores;
  */
 public class commandParser {
     
-   /* public parse throws invalidCommandException{
-        String message = in.readUTF();
+    public record Command(String action, String id, String student, String category, String desc) {}
+    
+    public static Command parse(String message) throws InvalidCommandException{
         
-        if (message.contains("create;")) { // checks to see if the message contains the create command
+        String[] parts = message.split(";", -1);
+        
+        if (parts.length != 5) {
             
-        } else if (message.contains("close;")) {  // checks to see if the message contains the close command
+            throw new InvalidCommandException("Invalid Command, one or more fields is missing. \n Expected: action;id;student;category;desc");
             
-        } else if(message.contains("list;")){ // checks to see if the message contains the list command
+        }
+        
+        for (int i = 0;  i < parts.length; i ++){
+        
+            parts[i] = parts[i].trim();
             
-        } */
+        }
+        
+        String action = parts[0].toLowerCase();
+        
+        if (!action.equals("open") && !action.equals("close") && !action.equals("list")) {
+        
+            throw new InvalidCommandException("Unrecognised command. \n Command must be: open, close, list");
+        
+        }
+        
+        return new Command (action, parts[1], parts[2], parts[3].toLowerCase(), parts[4]);
+        
     }
+
+}

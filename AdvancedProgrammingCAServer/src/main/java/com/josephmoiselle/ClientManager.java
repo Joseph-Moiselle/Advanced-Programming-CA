@@ -5,7 +5,7 @@
 package com.josephmoiselle;
 import java.net.Socket;
 import java.io.*;
-import com.josephmoiselle.Stores.ticketStore;
+import com.josephmoiselle.Stores.*;
 
 /**
  *
@@ -41,7 +41,23 @@ public class ClientManager implements Runnable {
                     
                 }
                 
-                out.println("Echo: " + message);
+                String reply;
+                
+                try{
+                commandParser.Command c = commandParser.parse(message);
+                switch (c.action()){
+                    
+                    case "open" -> reply = ticket.open(c.id(), c.student(), c.category(), c.desc());
+                    case "close" -> reply = ticket.close(c.id());
+                    default -> reply = ticket.list(c.student());
+                }
+                } catch (InvalidCommandException e){
+                    
+                    reply = "Invalid command: " + e.getMessage();
+                
+                }
+                
+                out.println(reply);
             
             }
             
