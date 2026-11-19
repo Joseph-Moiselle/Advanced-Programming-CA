@@ -4,14 +4,21 @@
  */
 package com.josephmoiselle.Stores;
 
+
 /**
  *
  * @author Joseph Moiselle 24308453
  */
 public class commandParser {
     
-    public parse throws invalidCommandException{
+   /* public parse throws invalidCommandException{
+        String message = in.readUTF();
         
+        if (message.contains("create;")) { // checks to see if the message contains the create command
+            
+        } else if (message.contains("close;")) {  // checks to see if the message contains the close command
+            
+        } else if(message.contains("list;")){ // checks to see if the message contains the list command
+            
+        } */
     }
-    
-}
