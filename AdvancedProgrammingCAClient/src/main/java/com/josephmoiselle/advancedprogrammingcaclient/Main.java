@@ -188,7 +188,7 @@ public class Main {
                 
             }
             
-            System.out.println("# of Imported lines: " + imported + "; # of Skipped lines: " + skipped);
+            System.out.println("Imported: " + imported + "; Skipped: " + skipped);
             
         }
         
