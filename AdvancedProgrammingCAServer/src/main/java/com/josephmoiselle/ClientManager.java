@@ -34,7 +34,7 @@ public class ClientManager implements Runnable {
             
             while ((message = in.readLine()) != null){
                 
-                if ((message.equals("STOP"))){
+                if ((message.trim().equals("STOP"))){
                     
                     out.println("TERMINATE");
                     break;
@@ -53,7 +53,7 @@ public class ClientManager implements Runnable {
                 }
                 } catch (InvalidCommandException e){
                     
-                    reply = "Invalid command: " + e.getMessage();
+                    reply = "InvalidCommandException: " + e.getMessage();
                 
                 }
                 

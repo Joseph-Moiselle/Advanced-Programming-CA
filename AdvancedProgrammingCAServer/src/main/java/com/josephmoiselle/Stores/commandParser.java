@@ -4,7 +4,7 @@
  */
 package com.josephmoiselle.Stores;
 
-
+import java.util.List;
 /**
  *
  * @author Joseph Moiselle 24308453
@@ -17,27 +17,73 @@ public class commandParser {
         
         String[] parts = message.split(";", -1);
         
-        if (parts.length != 5) {
+        if (parts.length !=5) {
             
-            throw new InvalidCommandException("Invalid Command, one or more fields is missing. \n Expected: action;id;student;category;desc");
+            throw new InvalidCommandException("Expected 5 fields: action; ticketID; student; category; desc");
             
         }
         
-        for (int i = 0;  i < parts.length; i ++){
-        
+        for (int i = 0; i < parts.length; i++) {
+            
             parts[i] = parts[i].trim();
             
         }
         
         String action = parts[0].toLowerCase();
+        String id = parts[1];
+        String student = parts[2];
+        String category = parts[3];
+        String desc = parts[4];
         
-        if (!action.equals("open") && !action.equals("close") && !action.equals("list")) {
-        
-            throw new InvalidCommandException("Unrecognised command. \n Command must be: open, close, list");
-        
+        switch (action) {
+            
+            case "open" -> {
+                
+                if (missing(id) || missing(student) || missing(category) || missing(desc)) {
+                    
+                    throw new InvalidCommandException("Command 'open' is missing one or more of the following fields: ticketID, student, category, desc");
+                    
+                }
+                
+                if (!List.of("account", "network", "software", "other").contains(category)) {
+                    
+                    throw new InvalidCommandException("Unrecognised category. Categegory must be: account/network/software/other");
+                    
+                }
+                
+            }
+            
+            case "close" -> {
+                
+                if(missing(id)) {
+                    
+                    throw new InvalidCommandException("close requires ticketID");
+                    
+                }
+                
+            }
+            
+            case "list" -> {
+                
+                if (missing(student)) {
+                    
+                    throw new InvalidCommandException("List requires student name");
+                    
+                }
+                
+            }
+            
+            default -> throw new InvalidCommandException("Unknown command. Command must be open/close/list");
+            
         }
         
-        return new Command (action, parts[1], parts[2], parts[3].toLowerCase(), parts[4]);
+        return new Command(action, id, student, category, desc);
+        
+    }
+    
+    private static boolean missing(String field) {
+        
+        return field.isEmpty() || field.equals("-");
         
     }
 

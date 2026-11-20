@@ -16,13 +16,45 @@ public class ticketStore {
     
     public synchronized String open(String id, String name, String category, String desc) throws InvalidCommandException{
     
-        return null;
+        for(Ticket t : tickets){
+            
+            if (t.id().equalsIgnoreCase(id)) {
+                
+                throw new InvalidCommandException("ticket ID '" + id + "' already exists");
+                
+            }
+            
+        }
+        
+        tickets.add(new Ticket(id, name, category, desc));
+        
+        return listFor(name);
         
     }
     
     public synchronized String close(String id) throws InvalidCommandException{
-    
-        return null;
+        
+        Ticket found = null;
+        
+        for (Ticket t : tickets) {
+        
+            if (t.id().equalsIgnoreCase(id)){
+                
+                found = t;
+                break;
+                
+            }
+            
+        }
+        
+        if (found == null) {
+        
+            throw new InvalidCommandException("ticket ID '" + id + "' does not exist");
+            
+        }
+        
+        tickets.remove(found);
+        return "Closed ticket '" + found.id() +"'";
         
     }
     
@@ -34,7 +66,28 @@ public class ticketStore {
     
     private String listFor(String name){
     
-        return null;
+        List<String> mine = new ArrayList<>();
+        
+        for (Ticket t : tickets) {
+            
+            if (t.name().equalsIgnoreCase(name)){
+                
+                mine.add(t.id() + " - " + t.name() + " - " + t.type() + " - " + t.desc());
+                
+            }
+            
+        }
+        
+        if (mine.isEmpty()) {
+        
+            return name + " has no open tickets";
+            
+            
+        }
+        
+        String singleOrPlural = (mine.size() == 1) ? "ticket" : "tickets";
+        
+        return name + " has " + mine.size() + " open " + singleOrPlural + ": " + String.join("; ", mine);
         
     }
     
