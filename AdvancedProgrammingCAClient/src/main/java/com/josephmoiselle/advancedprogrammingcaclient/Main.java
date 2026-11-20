@@ -157,6 +157,14 @@ public class Main {
                     serverOutput.println("open; " + id + "; " + student + "; " + category + "; " + desc);
                     
                     String reply = serverInput.readLine();
+                    
+                    if (reply == null) {
+                    
+                        System.out.println("Server closed the connection");
+                        break;
+                        
+                    }
+                    
                     System.out.println("Server: " + reply);
                     
                     if (reply.startsWith("InvalidCommandException")) {
